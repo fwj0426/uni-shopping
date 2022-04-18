@@ -1,0 +1,124 @@
+{
+	"pages": [ //pages数组中第一项表示应用启动页，参考：https://uniapp.dcloud.io/collocation/pages
+		{
+			"path": "pages/index/index",
+			"style": {}
+		},
+		{
+			"path": "pages/class/class",
+			"style": {
+				"app-plus": {
+					"scrollIndicator": "none",
+					"bounce": "none",
+					"titleNView": {
+						"searchInput": {
+							"align": "left",
+							"backgroundColor": "#F7F7F7",
+							"borderRadius": "4px",
+							"disabled": true,
+							"placeholder": "智能积木 越野四驱车",
+							"placeholderColor": "#CCCCCC"
+						},
+						"buttons": [{
+							"color": "#989898",
+							"colorPressed": "#FD6801",
+							"float": "right",
+							"fontSize": "22px",
+							"fontSrc": "/static/font/iconfont.ttf",
+							"text": "\ue67a"
+						}]
+					}
+				}
+			}
+		},
+		{
+			"path": "pages/cart/cart",
+			"style": {
+				"navigationBarTitleText": "uni-app"
+			}
+		},
+		{
+			"path": "pages/my/my",
+			"style": {
+				"navigationBarTitleText": "uni-app"
+			}
+		}, {
+			"path": "pages/search/search",
+			"style": {}
+		}, {
+			"path": "pages/search-list/search-list",
+			"style": {
+				"enablePullDownRefresh": true,
+				"app-plus": {
+					"scrollIndicator": "none",
+					"titleNView": {
+						"searchInput": {
+							"align": "left",
+							"backgroundColor": "#F7F7F7",
+							"borderRadius": "4px",
+							"disabled": false,
+							"placeholder": "智能积木 越野四驱车",
+							"placeholderColor": "#CCCCCC"
+						},
+						"buttons": [{
+							"color": "#989898",
+							"colorPressed": "#FD6801",
+							"float": "right",
+							"fontSize": "16px",
+							"text": "搜索"
+						}]
+					}
+				}
+			}
+
+		}
+
+	    ,{
+            "path" : "pages/detail/detail",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+    ],
+	"globalStyle": {
+		"navigationBarTextStyle": "black",
+		"navigationBarTitleText": "淘宝",
+		"navigationBarBackgroundColor": "#FFFFFF",
+		"backgroundColor": "#FFFFFF"
+	},
+	"tabBar": {
+		"height": "100upx",
+		"color": "#b1b1b1", //FFFFFF
+		"selectedColor": "#FD6801", //#FD6801
+		"borderStyle": "black",
+		"backgroundColor": "white",
+		"list": [{
+				"pagePath": "pages/index/index",
+				"text": "首页",
+				"iconPath": "static/tabbar/index.png",
+				"selectedIconPath": "static/tabbar/indexSelected.png"
+			},
+			{
+				"pagePath": "pages/class/class",
+				"text": "分类",
+				"iconPath": "static/tabbar/class.png",
+				"selectedIconPath": "static/tabbar/classSelected.png"
+			},
+			{
+				"pagePath": "pages/cart/cart",
+				"text": "购物车",
+				"iconPath": "static/tabbar/cart.png",
+				"selectedIconPath": "static/tabbar/cartSelected.png"
+			},
+			{
+				"pagePath": "pages/my/my",
+				"text": "我的",
+				"iconPath": "static/tabbar/my.png",
+				"selectedIconPath": "static/tabbar/mySelected.png"
+			}
+		]
+	}
+}
