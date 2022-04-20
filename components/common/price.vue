@@ -1,12 +1,12 @@
 <template>
 	<view class="d-flex line-h">
-		<text class="a-self-start :class="unitSize>￥</text>
+		<text class="a-self-start" :class="unitSize+' '+color">￥</text>
 		<text :class="priceSize+' '+color"><slot />{{text}}</text>
 	</view>
 </template>
 
 <script>
-	export default{
+	export default {
 		props:{
 			text:{
 				type:[String,Number],

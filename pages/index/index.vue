@@ -46,15 +46,15 @@
 								<!-- <divider /> -->
 							</template>
 							<!--三图-->
-							<!-- <swiper-image v-if="list.type === 'swipers'" :resdata="list.data" /> -->
-							<!-- <template v-else-if="list.type === 'threeAdv'"> -->
-							<!-- <three-adv :resdata="list.data" /> -->
-							<!-- <three-adv :resdata="threeAdv"/> -->
-							<!-- <divider /> -->
-							<!--分割线-->
-							<!-- </template> -->
+							<!-- <template  v-else-if="list.type === 'threeAdv'">
+								<three-adv :resdata="list.data" />
+								<divider />
+							</template> -->
 
 							<!--大图广告-->
+							<!-- <template v-else-if="list.type === 'titleList'">
+								<card :resdata="list.data"></card>
+							</template> -->
 							<template v-else-if="list.type === 'titleList'">
 								<card :resdata="list.data"></card>
 							</template>
@@ -153,7 +153,7 @@ export default {
 						},
 						{
 							type: 'titleList',
-							data: [{ text: 'hhhh', src: '/static/images/demo/demo4.jpg' }]
+							data: [{ text: 'hhhh', src: '/static/images/demo/list/1.jpg' }]
 						},
 						{
 							type: 'commonList',

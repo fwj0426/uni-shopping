@@ -1,39 +1,38 @@
 <template>
-	<view style="width: 372.5upx" @click="openDetail">
-		<image :src="item.cover" lazy-load mode="widthFix"></image>
+	<view style="width: 372.5rpx;" @click="openDetail">
+		<image :src="item.cover" mode="widthFix" style="height: 400rpx;" lazy-load></image>
 		<view class="p-2 pt-1">
-			<view class="font-md">{{ item.title }}</view>
-			<text class="d-block font text-light-muted ">{{ item.desc }}</text>
-			<view class="d-flex my-1">
-				<price :price="item.pprice"></price>
-				<view class="font-sm text-light-muted line-through ml-1 a-self-end line-h">￥{{ item.oprice }}</view>
+			<view><text class="font-md">{{item.title}}</text></view>
+			<text class="d-block font text-light-muted">{{item.desc}}</text>
+			<view class="d-flex py-1">
+				<price :text="item.pprice"></price>
+				<view class="ml-1 a-self-end line-h" ><text class="font-sm text-light-muted line-through">￥{{item.oprice}}</text></view>
 			</view>
 		</view>
 	</view>
 </template>
 
 <script>
-	import price from '@/components/common/price.vue';
-	export default{
+	import price from "@/components/common/price.vue";
+	export default {
 		components:{
 			price
 		},
 		props:{
 			item:Object,
-			index:Number,
-			// type:{
-			// 	type:String,
-			// 	default:"navigateTo"
-			// }
+			index:[Number,String],
+			type:{
+				type:String,
+				default:"navigateTo"
+			}
 		},
-		methods:{
-			// 跳转
-			openDetail(){
-				uni.navigateTo({
+		methods: {
+			openDetail() {
+				uni[this.type]({
 					url:"/pages/detail/detail?detail="+JSON.stringify(this.item)
 				})
 			}
-		}
+		},
 	}
 </script>
 
