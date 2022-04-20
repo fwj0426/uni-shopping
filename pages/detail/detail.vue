@@ -77,20 +77,82 @@
         </common-list>
       </view>
     </card>
-    <!-- 底部操作条 -->
-    <bottom-btn @show="show('attr')"></bottom-btn>
-    <!-- 属性筛选框 -->
-    <!-- 
-			商品信息(275rpx)
-			图片 180*180
-			-->
-    <!-- 
-			表单部分(660rpx)
-			-->
-    <!-- 
-			 按钮(100rpx)
-			 -->
-    <!-- 收货地址 -->
+    <!-- 底部操作条 @show="show('attr')"-->
+    <bottom-btn ></bottom-btn>
+    <!-- 属性筛选框 @hide="hide('attr')"-->
+		<!-- <common-popup :popupClass="popup.attr" >
+			
+			<view class="d-flex a-center" style="height: 275rpx;">
+				<image src="../../static/images/demo/list/1.jpg" mode="widthFix"
+				style="height: 180rpx;width: 180rpx;" class="border rounded"></image>
+				<view class="pl-2">
+					<price priceSize="font-lg" unitSize="font" :text="showPrice"></price>
+					<text class="d-block">{{checkedSkus}}</text>
+				</view>
+			</view>
+			
+			<scroll-view scroll-y class="w-100" style="height: 660rpx;">
+				<card :headTitle="item.title" :headTitleWeight="false" 
+				:headBorderBottom="false" :key="index"
+				v-for="(item,index) in selects">
+					<zcm-radio-group :label="item" 
+					:selected.sync='item.selected'></zcm-radio-group>
+				</card>
+				<view class="d-flex j-sb a-center p-2 border-top border-light-secondary">
+					<text>购买数量</text>
+					<uni-number-box :min="1" :max="maxStock" :value="detail.num" @change="detail.num = $event"></uni-number-box>
+				</view>
+			</scroll-view>
+			
+			 <view class="text-white font-md d-flex a-center j-center" 
+			 style="height: 100rpx;margin-left: -30rpx;margin-right: -30rpx;" :class="maxStock === 0 ? 'bg-secondary' : 'main-bg-color'"
+			 :hover-class="maxStock !== 0 ? 'main-bg-hover-color' : ''"
+			 @tap.stop="addCart">
+			 	{{maxStock===0?'暂无库存':'加入购物车'}}
+			 </view>
+		</common-popup> -->
+		
+		
+		<!-- 收货地址 -->
+		<!-- <common-popup :popupClass="popup.express" @hide="hide('express')">
+			<view class="d-flex a-center j-center font-md border-bottom border-light-secondary" style="height: 100rpx;">
+				收货地址
+			</view>
+			<scroll-view scroll-y class="w-100" style="height: 835rpx;">
+				<uni-list-item v-for="(item,index) in pathList" :key="index">
+					<view class="iconfont icon-dingwei font-weight font-md"
+					>{{item.name}}</view>
+					<view class="font text-light-muted">
+						{{item.path}} {{item.detailPath}}
+					</view>
+				</uni-list-item>
+			</scroll-view>
+			
+			 <view class="main-bg-color text-white font-md d-flex a-center j-center" hover-class="main-bg-hover-color" style="height: 100rpx;margin-left: -30rpx;margin-right: -30rpx;" @tap.stop="openCreatePath">
+			 	选择新的地址
+			 </view>
+		</common-popup> -->
+		
+		<!-- 服务说明 -->
+		<!-- <common-popup :popupClass="popup.service" @hide="hide('service')">
+			<view class="d-flex a-center j-center font-md border-bottom border-light-secondary" style="height: 100rpx;">
+				服务说明
+			</view>
+			<scroll-view scroll-y class="w-100" style="height: 835rpx;">
+				<view class="py-1">
+					<view class="d-flex a-center">
+						<view class="iconfont icon-finish main-text-color mr-1"></view>
+						小米自营
+					</view>
+					<text class="text-light-muted font pl-4">
+						不管满多少，就是不包邮
+					</text>
+				</view>
+			</scroll-view>
+			 <view class="main-bg-color text-white font-md d-flex a-center j-center" hover-class="main-bg-hover-color" style="height: 100rpx;margin-left: -30rpx;margin-right: -30rpx;" @tap.stop="hide('service')">
+			 	确定
+			 </view>
+		</common-popup> -->
   </view>
 </template>
 
@@ -104,11 +166,11 @@ import uParse from "@/components/uni-ui/uParse/src/wxParse.vue";
 import card from "@/components/common/card.vue";
 import commonList from "@/components/common/common-list.vue";
 import bottomBtn from "@/components/detail/bottom-btn.vue";
-// import commonPopup from "@/components/common/common-popup.vue";
+import commonPopup from "@/components/common/common-popup.vue";
 import price from "@/components/common/price.vue";
-// import zcmRadioGroup from "@/components/common/radio-group.vue";
-// import uniNumberBox from "@/components/uni-ui/uni-number-box/uni-number-box.vue";
-// import { mapState, mapMutations } from "vuex";
+import zcmRadioGroup from "@/components/common/radio-group.vue";
+import uniNumberBox from "@/components/uni-ui/uni-number-box/uni-number-box.vue";
+import { mapState, mapMutations } from "vuex";
 export default {
   components: {
     swiperImage,
@@ -120,7 +182,10 @@ export default {
     card,
     commonList,
     bottomBtn,
+    commonPopup,
     price,
+    zcmRadioGroup,
+    uniNumberBox
   },
   data() {
     return {
