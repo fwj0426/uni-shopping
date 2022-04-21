@@ -185,7 +185,7 @@
         <view class="py-1">
           <view class="d-flex a-center">
             <view class="iconfont icon-finish main-text-color mr-1"></view>
-            小米自营
+          哈哈哈自营
           </view>
           <text class="text-light-muted font pl-4">
             不管满多少，就是不包邮
