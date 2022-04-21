@@ -23,14 +23,14 @@
             <text class="main-text-color">马上领取</text>
           </view>
         </uni-list-item>
-        <uni-list-item>
+        <uni-list-item  @click="show('express')">
           <view class="d-flex">
             <text class="mr-2 text-muted">配送</text>
             <text class="mr-2">深圳市 南山区</text>
             <text class="main-text-color">现配</text>
           </view>
         </uni-list-item>
-        <uni-list-item extraWidth="15%">
+        <uni-list-item extraWidth="15%" @click="show('service')">
           <!-- uni-list-item extraWidth="15%" 组件右边宽度-->
           <view class="d-flex a-center">
             <view class="text-muted font d-flex a-center mr-2">
@@ -121,7 +121,7 @@
         </view>
       </scroll-view>
 
-      <!-- <view
+      <view
         class="text-white font-md d-flex a-center j-center"
         style="height: 100rpx; margin-left: -30rpx; margin-right: -30rpx"
         :class="maxStock === 0 ? 'bg-secondary' : 'main-bg-color'"
@@ -129,7 +129,7 @@
         @tap.stop="addCart"
       >
         {{ maxStock === 0 ? "暂无库存" : "加入购物车" }}
-      </view> -->
+      </view>
     </common-popup>
 
     <!-- 收货地址 -->
@@ -237,7 +237,11 @@ export default {
   },
   data() {
     return {
-      pathList: [],
+      pathList: [
+        {name:"哈哈哈",path:"17347515092",detailPath:"深圳南山"},
+        {name:"哈哈哈",path:"17347515092",detailPath:"深圳南山"},
+        {name:"哈哈哈",path:"17347515092",detailPath:"深圳南山"}
+      ],
       selects: [
         {
           title: "颜色",
