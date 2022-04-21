@@ -1,6 +1,6 @@
 <template>
 	<view class="row">
-		<view class="span24-8 px-2 mb-2" :key="index"
+		<view class="span24-4 px-2 mb-2" :key="index"
 		v-for="(item,index) in label.list">
 			<view class="rounded px-2 py-1 bg-light-secondary font-md text-center border"
 			:class="label.selected === index ? 'radio-active':'border-light-secondary'"

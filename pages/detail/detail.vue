@@ -9,8 +9,8 @@
     <!-- 属性选择 -->
     <view class="p-2">
       <view class="rounded border bg-light-secondary">
-        <uni-list-item>
-          <!-- @click="show('attr')" v-if="detail.sku_type === 1" -->
+        <uni-list-item @click="show('attr')">
+          <!-- v-if="detail.sku_type === 1" -->
           <view class="d-flex">
             <text class="mr-2 text-muted">已选</text>
             <text>{{ checkedSkus }}</text>
@@ -77,82 +77,130 @@
         </common-list>
       </view>
     </card>
-    <!-- 底部操作条 @show="show('attr')"-->
-    <bottom-btn ></bottom-btn>
-    <!-- 属性筛选框 @hide="hide('attr')"-->
-		<!-- <common-popup :popupClass="popup.attr" >
-			
-			<view class="d-flex a-center" style="height: 275rpx;">
-				<image src="../../static/images/demo/list/1.jpg" mode="widthFix"
-				style="height: 180rpx;width: 180rpx;" class="border rounded"></image>
-				<view class="pl-2">
-					<price priceSize="font-lg" unitSize="font" :text="showPrice"></price>
-					<text class="d-block">{{checkedSkus}}</text>
-				</view>
-			</view>
-			
-			<scroll-view scroll-y class="w-100" style="height: 660rpx;">
-				<card :headTitle="item.title" :headTitleWeight="false" 
-				:headBorderBottom="false" :key="index"
-				v-for="(item,index) in selects">
-					<zcm-radio-group :label="item" 
-					:selected.sync='item.selected'></zcm-radio-group>
-				</card>
-				<view class="d-flex j-sb a-center p-2 border-top border-light-secondary">
-					<text>购买数量</text>
-					<uni-number-box :min="1" :max="maxStock" :value="detail.num" @change="detail.num = $event"></uni-number-box>
-				</view>
-			</scroll-view>
-			
-			 <view class="text-white font-md d-flex a-center j-center" 
-			 style="height: 100rpx;margin-left: -30rpx;margin-right: -30rpx;" :class="maxStock === 0 ? 'bg-secondary' : 'main-bg-color'"
-			 :hover-class="maxStock !== 0 ? 'main-bg-hover-color' : ''"
-			 @tap.stop="addCart">
-			 	{{maxStock===0?'暂无库存':'加入购物车'}}
-			 </view>
-		</common-popup> -->
-		
-		
-		<!-- 收货地址 -->
-		<!-- <common-popup :popupClass="popup.express" @hide="hide('express')">
-			<view class="d-flex a-center j-center font-md border-bottom border-light-secondary" style="height: 100rpx;">
-				收货地址
-			</view>
-			<scroll-view scroll-y class="w-100" style="height: 835rpx;">
-				<uni-list-item v-for="(item,index) in pathList" :key="index">
-					<view class="iconfont icon-dingwei font-weight font-md"
-					>{{item.name}}</view>
-					<view class="font text-light-muted">
-						{{item.path}} {{item.detailPath}}
-					</view>
-				</uni-list-item>
-			</scroll-view>
-			
-			 <view class="main-bg-color text-white font-md d-flex a-center j-center" hover-class="main-bg-hover-color" style="height: 100rpx;margin-left: -30rpx;margin-right: -30rpx;" @tap.stop="openCreatePath">
-			 	选择新的地址
-			 </view>
-		</common-popup> -->
-		
-		<!-- 服务说明 -->
-		<!-- <common-popup :popupClass="popup.service" @hide="hide('service')">
-			<view class="d-flex a-center j-center font-md border-bottom border-light-secondary" style="height: 100rpx;">
-				服务说明
-			</view>
-			<scroll-view scroll-y class="w-100" style="height: 835rpx;">
-				<view class="py-1">
-					<view class="d-flex a-center">
-						<view class="iconfont icon-finish main-text-color mr-1"></view>
-						小米自营
-					</view>
-					<text class="text-light-muted font pl-4">
-						不管满多少，就是不包邮
-					</text>
-				</view>
-			</scroll-view>
-			 <view class="main-bg-color text-white font-md d-flex a-center j-center" hover-class="main-bg-hover-color" style="height: 100rpx;margin-left: -30rpx;margin-right: -30rpx;" @tap.stop="hide('service')">
-			 	确定
-			 </view>
-		</common-popup> -->
+    <!-- 底部操作条 -->
+    <bottom-btn @show="show('attr')"></bottom-btn>
+    <!-- 属性筛选框 -->
+    <common-popup :popupClass="popup.attr" @hide="hide('attr')">
+      <view class="d-flex a-center" style="height: 275rpx">
+        <image
+          src="/static/images/demo/list/1.jpg"
+          mode="widthFix"
+          style="height: 180rpx; width: 180rpx"
+          class="border rounded"
+        ></image>
+        <view class="pl-2">
+          <price priceSize="font-lg" unitSize="font" :text="showPrice"></price>
+          <text class="d-block">{{ checkedSkus }}</text>
+        </view>
+      </view>
+
+      <scroll-view scroll-y class="w-100" style="height: 660rpx">
+        <card
+          :headTitle="item.title"
+          :headTitleWeight="false"
+          :headBorderBottom="false"
+          :key="index"
+          v-for="(item, index) in selects"
+        >
+          <zcm-radio-group
+            :label="item"
+            :selected.sync="item.selected"
+          ></zcm-radio-group>
+        </card>
+        <view
+          class="d-flex j-sb a-center p-2 border-top border-light-secondary"
+        >
+          <text>购买数量</text>
+          <!--  -->
+          <uni-number-box
+            :min="1"
+            :max="maxStock"
+            :value="detail.num"
+            @change="detail.num = $event"
+          ></uni-number-box>
+        </view>
+      </scroll-view>
+
+      <!-- <view
+        class="text-white font-md d-flex a-center j-center"
+        style="height: 100rpx; margin-left: -30rpx; margin-right: -30rpx"
+        :class="maxStock === 0 ? 'bg-secondary' : 'main-bg-color'"
+        :hover-class="maxStock !== 0 ? 'main-bg-hover-color' : ''"
+        @tap.stop="addCart"
+      >
+        {{ maxStock === 0 ? "暂无库存" : "加入购物车" }}
+      </view> -->
+    </common-popup>
+
+    <!-- 收货地址 -->
+    <common-popup :popupClass="popup.express" @hide="hide('express')">
+      <view
+        class="
+          d-flex
+          a-center
+          j-center
+          font-md
+          border-bottom border-light-secondary
+        "
+        style="height: 100rpx"
+      >
+        收货地址
+      </view>
+      <scroll-view scroll-y class="w-100" style="height: 835rpx">
+        <uni-list-item v-for="(item, index) in pathList" :key="index">
+          <view class="iconfont icon-dingwei font-weight font-md">{{
+            item.name
+          }}</view>
+          <view class="font text-light-muted">
+            {{ item.path }} {{ item.detailPath }}
+          </view>
+        </uni-list-item>
+      </scroll-view>
+
+      <view
+        class="main-bg-color text-white font-md d-flex a-center j-center"
+        hover-class="main-bg-hover-color"
+        style="height: 100rpx; margin-left: -30rpx; margin-right: -30rpx"
+        @tap.stop="openCreatePath"
+      >
+        选择新的地址
+      </view>
+    </common-popup>
+
+    <!-- 服务说明 -->
+    <common-popup :popupClass="popup.service" @hide="hide('service')">
+      <view
+        class="
+          d-flex
+          a-center
+          j-center
+          font-md
+          border-bottom border-light-secondary
+        "
+        style="height: 100rpx"
+      >
+        服务说明
+      </view>
+      <scroll-view scroll-y class="w-100" style="height: 835rpx">
+        <view class="py-1">
+          <view class="d-flex a-center">
+            <view class="iconfont icon-finish main-text-color mr-1"></view>
+            小米自营
+          </view>
+          <text class="text-light-muted font pl-4">
+            不管满多少，就是不包邮
+          </text>
+        </view>
+      </scroll-view>
+      <view
+        class="main-bg-color text-white font-md d-flex a-center j-center"
+        hover-class="main-bg-hover-color"
+        style="height: 100rpx; margin-left: -30rpx; margin-right: -30rpx"
+        @tap.stop="hide('service')"
+      >
+        确定
+      </view>
+    </common-popup>
   </view>
 </template>
 
@@ -185,10 +233,33 @@ export default {
     commonPopup,
     price,
     zcmRadioGroup,
-    uniNumberBox
+    uniNumberBox,
   },
   data() {
     return {
+      pathList: [],
+      selects: [
+        {
+          title: "颜色",
+          selected: 0,
+          list: [{ name: "蓝" }, { name: "黄" }, { name: "红" }],
+        },
+        {
+          title: "容量",
+          selected: 0,
+          list: [{ name: "64" }, { name: "128" }, { name: "选项三" }],
+        },
+        {
+          title: "套餐",
+          selected: 0,
+          list: [{ name: "标配" }, { name: "套餐熠" }, { name: "套餐二" }],
+        },
+      ],
+      popup: {
+        attr: "none",
+        express: "none",
+        service: "none",
+      },
       checkedSkus: "火焰红",
       context: "",
       hotList: [
@@ -277,8 +348,8 @@ export default {
         desc: "磁动力滑盖全面屏 / 前后旗舰AI双摄 / 四曲面彩色陶瓷机身 / 高效10W无线充电",
         // cover: "/static/images/demo/list/1.jpg",
         pprice: 3299,
-        // num: 1,
-        // max: 100,
+        num: 1,
+        max: 100,
       },
       comments: [
         {
@@ -296,7 +367,20 @@ export default {
       ],
     };
   },
+  // 监听页面返回事件
+  onBackPress() {
+    // 关闭模态框
+    for (let key in this.popup) {
+      if (this.popup[key] !== "none") {
+        this.hide(key);
+        return true;
+      }
+    }
+  },
   computed: {
+    ...mapState({
+      pathList: (state) => state.path.list,
+    }),
     // 选中skus的索引
     checkedSkusIndex() {
       if (!Array.isArray(this.detail.goodsSkus)) {
@@ -314,8 +398,37 @@ export default {
       }
       return this.detail.goodsSkus[this.checkedSkusIndex].pprice;
     },
+    maxStock() {
+      if (this.detail.sku_type === 0) {
+        return this.detail.stock;
+      }
+      if (!Array.isArray(this.detail.goodsSkus)) {
+        return 100;
+      }
+      return this.detail.goodsSkus[this.checkedSkusIndex].stock;
+    },
   },
+  // onLoad(e) {
+  // 		if (e.detail) {
+  // 			this.__init(JSON.parse(e.detail))
+  // 		}
+  // 	},
   methods: {
+    openCreatePath() {
+      uni.navigateTo({
+        url: "../user-path-edit/user-path-edit",
+      });
+      this.hide("express");
+    },
+    hide(key) {
+      this.popup[key] = "hide";
+      setTimeout(() => {
+        this.popup[key] = "none";
+      }, 200);
+    },
+    show(key) {
+      this.popup[key] = "show";
+    },
     preview(src, e) {
       // do something
       console.log("src: " + src);
@@ -326,6 +439,12 @@ export default {
       uni.wx.showModal({
         content: "content" + href,
         showCancel: false,
+      });
+    },
+    // 进入领取优惠券页面
+    goToCoupon() {
+      this.navigateTo({
+        url: "../coupon/coupon",
       });
     },
   },

@@ -9,10 +9,10 @@
 			</view>
 			<view class="flex-1 d-flex flex-column a-center j-center line-h-md position-relative" hover-class="bg-light-secondary" @tap="ToCart">
 				<view class="iconfont icon-gouwuche text-muted line-h-md"></view>
-				<view class="position-absolute" style="left: 100rpx;top: 0;"
+				<!-- <view class="position-absolute" style="left: 100rpx;top: 0;"
 				v-if="cartCount === '99+' || cartCount > 0">
 					<uni-badge :text="cartCount" type="error" size="small"></uni-badge>
-				</view>
+				</view> -->
 				购物车
 			</view>
 			<view class="d-flex j-center a-center font-md main-bg-color text-white" hover-class="main-bg-hover-color" style="flex: 2.5;"
@@ -25,15 +25,15 @@
 </template>
 
 <script>
-	import uniBadge from '../uni-ui/uni-badge/uni-badge.vue';
+	// import uniBadge from '../uni-ui/uni-badge/uni-badge.vue';
 	import { mapGetters } from 'vuex'
 	export default {
-		components: {
-			uniBadge
-		},
-		computed: {
-			...mapGetters(['cartCount'])
-		},
+		// components: {
+		// 	uniBadge
+		// },
+		// computed: {
+		// 	...mapGetters(['cartCount'])
+		// },
 		methods: {
 			ToCart() {
 				uni.switchTab({

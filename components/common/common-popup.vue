@@ -1,6 +1,7 @@
 <template>
 	<view class="_popup" :class="popupClass">
-		<view class="_mask" @tap.stop="$emit('hide')" @touchmove.stop.prevent="movehandle"></view>
+		<view class="_mask" @tap.stop="$emit('hide')" ></view>
+		<!-- @touchmove.stop.prevent="movehandle" -->
 		<view class="_body">
 			<slot />
 		</view>
