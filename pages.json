@@ -1,5 +1,5 @@
 {
-	"pages": [ //pages数组中第一项表示应用启动页，参考：https://uniapp.dcloud.io/collocation/pages
+	"pages": [ //pages数组中第一项表示应用启动页，参考：https://uniapp.dcloud.io/collocation/pages]
 		{
 			"path": "pages/index/index",
 			"style": {}
@@ -34,7 +34,13 @@
 		{
 			"path": "pages/cart/cart",
 			"style": {
-				"navigationBarTitleText": "uni-app"
+				"app-plus":{
+					"titleNView":false,
+					"scrollIndicator":"none",
+					// 不显示滚动条
+					"bounce":"none"
+					// 不显示回弹
+				}
 			}
 		},
 		{
@@ -95,8 +101,12 @@
             "path" : "pages/detail-comment/detail-comment",
             "style" :                                                                                    
             {
-                "navigationBarTitleText": "",
-                "enablePullDownRefresh": false
+                "navigationBarTitleText": "商品评价",
+				"app-plus":{
+					"scrollIndicator":"none",
+					"bounce":"none"
+				}
+                
             }
             
         }
@@ -109,8 +119,8 @@
 	},
 	"tabBar": {
 		"height": "100upx",
-		"color": "#b1b1b1", //FFFFFF
-		"selectedColor": "#FD6801", //#FD6801
+		"color": "#b1b1b1", 
+		"selectedColor": "#FD6801",
 		"borderStyle": "black",
 		"backgroundColor": "white",
 		"list": [{

@@ -48,12 +48,7 @@
 	import $T from '@/common/lib/time.js';
 	export default {
 		props: ['comments',],
-		// 'goods_id'
-		// filters: {
-		// 	formatTime(value) {
-		// 		return $T.gettime(value);
-		// 	}
-		// },
+		
 		methods:{
 			open(){
 				uni.navigateTo({

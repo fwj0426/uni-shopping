@@ -62,10 +62,9 @@
 		</view>
 		<divider />
 		<!-- 上拉加载 -->
-		<view 
-		class="d-flex a-center j-center text-light-muted font-md py-3">
+		<!-- <view class="d-flex a-center j-center text-light-muted font-md py-3">
 			{{loadtext}}
-		</view>
+		</view> -->
 	</view>
 </template>
 
@@ -85,6 +84,7 @@
 				total:0,
 				good_rate:0,
 				list:[],
+				
 				page:1,
 				// 1.上拉加载更多 2.加载中... 3.没有更多了
 				loadtext:"上拉加载更多"
@@ -99,7 +99,7 @@
 			
 			this.page++
 			this.loadtext = '加载中...'
-			this.getData()
+			// this.getData()
 		},
 		// 监听下拉刷新
 		onPullDownRefresh(){

@@ -111,10 +111,10 @@
           class="d-flex j-sb a-center p-2 border-top border-light-secondary"
         >
           <text>购买数量</text>
-          <!--  -->
+          <!-- :max="maxStock" -->
           <uni-number-box
             :min="1"
-            :max="maxStock"
+            
             :value="detail.num"
             @change="detail.num = $event"
           ></uni-number-box>
@@ -412,11 +412,11 @@ export default {
       return this.detail.goodsSkus[this.checkedSkusIndex].stock;
     },
   },
-  // onLoad(e) {
-  // 		if (e.detail) {
-  // 			this.__init(JSON.parse(e.detail))
-  // 		}
-  // 	},
+  onLoad(e) {
+  		if (e.detail) {
+  			this.__init(JSON.parse(e.detail))
+  		}
+  	},
   methods: {
     openCreatePath() {
       uni.navigateTo({
