@@ -35,10 +35,10 @@
 			"path": "pages/cart/cart",
 			"style": {
 				"app-plus":{
-					"titleNView":false,
-					"scrollIndicator":"none",
+					"titleNView":false
+					// "scrollIndicator":"none",
 					// 不显示滚动条
-					"bounce":"none"
+					// "bounce":"none"
 					// 不显示回弹
 				}
 			}

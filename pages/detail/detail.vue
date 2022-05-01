@@ -111,10 +111,10 @@
           class="d-flex j-sb a-center p-2 border-top border-light-secondary"
         >
           <text>购买数量</text>
-          <!-- :max="maxStock" -->
+          <!-- -->
           <uni-number-box
             :min="1"
-            
+            :max="maxStock" 
             :value="detail.num"
             @change="detail.num = $event"
           ></uni-number-box>
@@ -256,7 +256,7 @@ export default {
         {
           title: "套餐",
           selected: 0,
-          list: [{ name: "标配" }, { name: "套餐熠" }, { name: "套餐二" }],
+          list: [{ name: "标配" }, { name: "套餐一" }, { name: "套餐二" }],
         },
       ],
       popup: {
