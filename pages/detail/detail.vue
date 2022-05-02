@@ -111,24 +111,25 @@
           class="d-flex j-sb a-center p-2 border-top border-light-secondary"
         >
           <text>购买数量</text>
-          <!-- -->
+          <!--:max="maxStock" -->
+          
+
           <uni-number-box
             :min="1"
-            :max="maxStock" 
             :value="detail.num"
             @change="detail.num = $event"
           ></uni-number-box>
         </view>
       </scroll-view>
-
+      <!-- :class="maxStock === 0 ? 'bg-secondary' : 'main-bg-color'"
+        :hover-class="maxStock !== 0 ? 'main-bg-hover-color' : ''" -->
       <view
-        class="text-white font-md d-flex a-center j-center"
-        style="height: 100rpx; margin-left: -30rpx; margin-right: -30rpx"
-        :class="maxStock === 0 ? 'bg-secondary' : 'main-bg-color'"
-        :hover-class="maxStock !== 0 ? 'main-bg-hover-color' : ''"
+        class="text-white font-md d-flex a-center j-center     main-bg-hover-color"
+        style="height: 100rpx; margin-left: -30rpx; margin-right: -30rpx "
+        hover-class=""
         @tap.stop="addCart"
-      >
-        {{ maxStock === 0 ? "暂无库存" : "加入购物车" }}
+      >加入购物车
+        <!-- {{ maxStock === 0 ? "暂无库存" : "加入购物车" }} -->
       </view>
     </common-popup>
 
@@ -221,6 +222,7 @@ import zcmRadioGroup from "@/components/common/radio-group.vue";
 import uniNumberBox from "@/components/uni-ui/uni-number-box/uni-number-box.vue";
 import { mapState, mapMutations } from "vuex";
 export default {
+
   components: {
     swiperImage,
     baseInfo,
@@ -243,23 +245,7 @@ export default {
         {name:"哈哈哈",path:"17347515092",detailPath:"深圳南山"},
         {name:"哈哈哈",path:"17347515092",detailPath:"深圳南山"}
       ],
-      selects: [
-        {
-          title: "颜色",
-          selected: 0,
-          list: [{ name: "蓝" }, { name: "黄" }, { name: "红" }],
-        },
-        {
-          title: "容量",
-          selected: 0,
-          list: [{ name: "64" }, { name: "128" }, { name: "选项三" }],
-        },
-        {
-          title: "套餐",
-          selected: 0,
-          list: [{ name: "标配" }, { name: "套餐一" }, { name: "套餐二" }],
-        },
-      ],
+      
       popup: {
         attr: "none",
         express: "none",
@@ -347,14 +333,31 @@ export default {
           desc: "845八核",
         },
       ],
+      selects: [
+        {
+          title: "颜色",
+          selected: 0,
+          list: [{ name: "蓝" }, { name: "黄" }, { name: "红" }],
+        },
+        {
+          title: "容量",
+          selected: 0,
+          list: [{ name: "64" }, { name: "128" }, { name: "选项三" }],
+        },
+        {
+          title: "套餐",
+          selected: 0,
+          list: [{ name: "标配" }, { name: "套餐一" }, { name: "套餐二" }],
+        },
+      ],
       detail: {
-        // id: 20,
+        id: 20,
         title: "小米MIX3 6GB+128GB",
         desc: "磁动力滑盖全面屏 / 前后旗舰AI双摄 / 四曲面彩色陶瓷机身 / 高效10W无线充电",
-        // cover: "/static/images/demo/list/1.jpg",
-        pprice: 3299,
-        num: 1,
-        max: 100,
+        cover: "/static/images/demo/list/1.jpg",
+        pprice:3299,
+        num:1,
+        max:100,
       },
       comments: [
         {
@@ -419,6 +422,28 @@ export default {
   // 		}
   // 	},
   methods: {
+    ...mapMutations([
+		
+      'addGoodsToCart',
+    ]),
+    // 加入购物车
+			addCart(){
+        //组织数据
+        // let goods = this.detail
+        // goods['checked'] = false
+        // // 默认不选中状态
+        // goods['skusText'] = selects
+        // // 加入购物车
+        // this.addGoodsToCart(goods)
+        // // 加入购物车传入goods数据
+        // // 隐藏帅选狂
+        // this.hide('attr')
+        // // 成功提式
+        // uni.wx.showToast({
+        //   title: '加入成功',
+         
+        // })
+      },
     openCreatePath() {
       uni.navigateTo({
         url: "../user-path-edit/user-path-edit",

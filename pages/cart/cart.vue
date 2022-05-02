@@ -55,13 +55,10 @@
           <!-- 规格属性  :class="isedit ? ' p-1 bg-light-secondary mb-2' : ''"
 					  v-if="item.skus_type === 1"-->
           <view class="d-flex text-light-muted mb-1" :class="isedit ? ' p-1 bg-light-secondary mb-2' : ''"
-		    @tap.stop="showPopup">
-            <text
-              class="mr-1"
-              v-for="(attr, attrIndex) in item.skusText"
-              :key="attrIndex"
-              >{{ attr.list[attr.selected].name }}</text
-            >
+		    @tap.stop="showPopup(index)">
+            <text class="mr-1"
+              v-for="(attr, attrIndex) in item.skusText" :key="attrIndex"
+              >{{ attr.list[attr.selected].name }}</text>
             <!-- {{ item.skusText }} iconfont icon-bottom-->
             <view class=" font ml-auto" v-if="isedit"><uni-icons type="bottom" size="12"></uni-icons></view>
           </view>
@@ -189,7 +186,11 @@
         ></image>
         <view class="pl-2">
           <price priceSize="font-lg" unitSize="font" >2365</price>
-          <text class="d-block">红</text>
+          <view class="d-block">
+			  <text class="mr-1"
+              v-for="(attr, attrIndex) in popupData.skusText" :key="attrIndex"
+              >{{ attr.list[attr.selected].name }}</text>
+		  </view>
         </view>
       </view>
 	  <!--:text="showPrice"  {{ checkedSkus }}  :max="maxStock" -->
@@ -199,7 +200,7 @@
           :headTitleWeight="false"
           :headBorderBottom="false"
           :key="index"
-          v-for="(item, index) in selects"
+          v-for="(item, index) in popupData.skusText"
         >
           <zcm-radio-group
             :label="item"
@@ -213,8 +214,8 @@
          
           <uni-number-box
             :min="1"
-            :value="detail.num"
-            @change="detail.num = $event"
+            :value="popupData.num"
+            @change="popupData.num = $event"
           ></uni-number-box>
         </view>
       </scroll-view>
@@ -313,10 +314,11 @@ export default {
       	selectedList:state=> state.cart.selectedList,
     }),
     ...mapGetters([
-      	"checkedAll",
-      	"disableSelectAll",
-      	"totalPrice",
-      	"cartCount",
+      	'checkedAll',
+      	'disableSelectAll',
+      	'totalPrice',
+      	'cartCount',
+		'popupData'
     ]),
     changeNum(e, item, index) {
       	item.num = e

@@ -5,6 +5,7 @@ export default {
 		selectedList:[],
         // popup显示
 		popupShow:"none",
+        //默认操作的index索引为负一 负一代表没有选中  大于-1的索引有商品
 		popupIndex:-1,
 		popupData:{},
         //购物车列表 
@@ -146,7 +147,12 @@ export default {
 				return state.list.length
 			}
 			return '99+'
-		}
+		},
+        //拿到当前需要修改属性的商品
+        popupData:(state)=>{
+            return state.popupIndex > -1 ? state.list[state.popupIndex] :{}
+            // 判断popupIndex 是否大于负一  大于负一有商品则显示 否则显示空对象
+        }
     },
     // 同步方法
     mutations: {
@@ -196,6 +202,21 @@ export default {
 			})
 			// $U.updateCartBadge(state.list.length)
 		},
+        // 初始化popupIndex
+        popupIndex(state,index){
+            state.popupIndex=index
+        },
+        // 加入购物车
+		addGoodsToCart(state,goods){
+			state.list.unshift(goods)
+			// $U.updateCartBadge(state.list.length)
+		},
+		// 清空购物车
+		clearCart(state){
+			state.list = []
+			state.selectedList = []
+			// $U.updateCartBadge(state.list.length)
+		}
 
     },
     // 异步方法
@@ -205,8 +226,9 @@ export default {
             getters.checked ? commit('unSelectAll'): commit('selectAll')
         },
         // 显示popup
-		doShowPopup({state}){
-			// commit('initPopupIndex',index)
+		doShowPopup({state,commit},index){
+			commit('initPopupIndex',index)
+            // 初始化popupIndex
 			// state.popupData = data
 			// state.popupData.item = state.list[index]
 			// console.log(state.popupData);
@@ -217,7 +239,7 @@ export default {
 			state.popupShow = 'hide'
 			setTimeout(()=>{
 				state.popupShow = 'none'
-				// commit('initPopupIndex',-1)
+				commit('initPopupIndex',-1)
 			},200)
 		},
         doDelGoods({commit}){
