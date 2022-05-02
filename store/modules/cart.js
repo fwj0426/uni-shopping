@@ -3,11 +3,15 @@ export default {
      state: {  
         // 选中列表（存放选中的id）
 		selectedList:[],
+        // popup显示
+		popupShow:"none",
+		popupIndex:-1,
+		popupData:{},
         //购物车列表 
         list: [
             {
                 checked:false,
-                id:1,
+                id:'1',
                 cover: '../../static/images/demo/cate_01.png',
                 title: '香油条',
                 pprice: 500,
@@ -41,7 +45,7 @@ export default {
                 ]
             },{
                 checked:false,
-                id:2,
+                id:'2',
                 cover: '../../static/images/demo/cate_01.png',
                 title: '北京烤鸭',
                 pprice: 500,
@@ -77,7 +81,7 @@ export default {
                 ]
             },{
                 checked:false,
-                id:3,
+                id:'3',
                 cover: '../../static/images/demo/cate_01.png',
                 title: '南京板鸭',
                 pprice: 300,
@@ -200,6 +204,22 @@ export default {
             // 拿选中的状态来判断是否全选或取消全选
             getters.checked ? commit('unSelectAll'): commit('selectAll')
         },
+        // 显示popup
+		doShowPopup({state}){
+			// commit('initPopupIndex',index)
+			// state.popupData = data
+			// state.popupData.item = state.list[index]
+			// console.log(state.popupData);
+			state.popupShow = 'show'
+		},
+		// 隐藏popup
+		doHidePopup({state}){
+			state.popupShow = 'hide'
+			setTimeout(()=>{
+				state.popupShow = 'none'
+				// commit('initPopupIndex',-1)
+			},200)
+		},
         doDelGoods({commit}){
 			// if(state.selectedList.length === 0){
 			// 	return uni.showToast({

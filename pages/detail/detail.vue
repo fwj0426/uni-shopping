@@ -382,9 +382,9 @@ export default {
     }
   },
   computed: {
-    ...mapState({
-      pathList: (state) => state.path.list,
-    }),
+    // ...mapState({
+    //   pathList: (state) => state.path.list,
+    // }),
     // 选中skus的索引
     checkedSkusIndex() {
       if (!Array.isArray(this.detail.goodsSkus)) {
@@ -412,11 +412,11 @@ export default {
       return this.detail.goodsSkus[this.checkedSkusIndex].stock;
     },
   },
-  onLoad(e) {
-  		if (e.detail) {
-  			this.__init(JSON.parse(e.detail))
-  		}
-  	},
+  // onLoad(e) {
+  // 		if (e.detail) {
+  // 			this.__init(JSON.parse(e.detail))
+  // 		}
+  // 	},
   methods: {
     openCreatePath() {
       uni.navigateTo({

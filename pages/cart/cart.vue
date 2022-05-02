@@ -53,18 +53,17 @@
             item.title
           }}</view>
           <!-- 规格属性  :class="isedit ? ' p-1 bg-light-secondary mb-2' : ''"
-					 @tap.stop="showPopup(index, item)" v-if="item.skus_type === 1"-->
-          <view class="d-flex text-light-muted mb-1" :class="isedit ? ' p-1 bg-light-secondary mb-2' : ''">
+					  v-if="item.skus_type === 1"-->
+          <view class="d-flex text-light-muted mb-1" :class="isedit ? ' p-1 bg-light-secondary mb-2' : ''"
+		    @tap.stop="showPopup">
             <text
               class="mr-1"
               v-for="(attr, attrIndex) in item.skusText"
               :key="attrIndex"
               >{{ attr.list[attr.selected].name }}</text
             >
-            <!-- {{ item.skusText }} -->
-            <view
-                class="iconfont icon-bottom font ml-auto"
-            	v-if="isedit"></view>
+            <!-- {{ item.skusText }} iconfont icon-bottom-->
+            <view class=" font ml-auto" v-if="isedit"><uni-icons type="bottom" size="12"></uni-icons></view>
           </view>
           <view class="mt-auto d-flex j-sb">
             <price :text="item.pprice"></price>
@@ -180,7 +179,59 @@
     </view>
 
     <!-- 属性筛选框 -->
-	
+	<common-popup :popupClass="doShowPopup" @hide="doHidePopup">
+      <view class="d-flex a-center" style="height: 275rpx">
+        <image
+          src="/static/images/demo/list/1.jpg"
+          mode="widthFix"
+          style="height: 180rpx; width: 180rpx"
+          class="border rounded"
+        ></image>
+        <view class="pl-2">
+          <price priceSize="font-lg" unitSize="font" >2365</price>
+          <text class="d-block">红</text>
+        </view>
+      </view>
+	  <!--:text="showPrice"  {{ checkedSkus }}  :max="maxStock" -->
+      <scroll-view scroll-y class="w-100" style="height: 660rpx">
+        <card
+          :headTitle="item.title"
+          :headTitleWeight="false"
+          :headBorderBottom="false"
+          :key="index"
+          v-for="(item, index) in selects"
+        >
+          <zcm-radio-group
+            :label="item"
+            :selected.sync="item.selected"
+          ></zcm-radio-group>
+        </card>
+        <view
+          class="d-flex j-sb a-center p-2 border-top border-light-secondary"
+        >
+          <text>购买数量</text>
+         
+          <uni-number-box
+            :min="1"
+            :value="detail.num"
+            @change="detail.num = $event"
+          ></uni-number-box>
+        </view>
+      </scroll-view>
+	  <!--  :"maxStock !== 0 ? '' : ''"      :class="maxStock === 0 ? 'bg-secondary' : 'main-bg-color'"-->
+      <view
+        class="text-white font-md d-flex a-center j-center"
+        style="height: 100rpx; margin-left: -30rpx; margin-right: -30rpx"
+		hover-class="main-bg-hover-color"
+        
+       
+        @tap.stop="doHidePopup"
+      >
+	  确定
+        <!-- {{ maxStock === 0 ? "暂无库存" : "加入购物车" }} -->
+      </view>
+    </common-popup>
+
 	<!-- 属性筛选框 -->
     
   </view>
@@ -192,14 +243,50 @@ import uniNavBar from "@/components/uni-ui/uni-nav-bar/uni-nav-bar.vue";
 import price from "@/components/common/price.vue";
 import uniNumberBox from "@/components/uni-ui/uni-number-box/uni-number-box.vue";
 import { mapState, mapGetters, mapMutations, mapActions } from "vuex";
+
+
+
+import commonPopup from "@/components/common/common-popup.vue"
+import zcmRadioGroup from "@/components/common/radio-group.vue"
+import card from "@/components/common/card.vue"
 export default {
   components: {
     uniNavBar,
     price,
     uniNumberBox,
+
+	commonPopup,
+	zcmRadioGroup,
+	card,
   },
   data() {
     return {
+		selects: [
+        {
+          title: "颜色",
+          selected: 0,
+          list: [{ name: "蓝" }, { name: "黄" }, { name: "红" }],
+        },
+        {
+          title: "容量",
+          selected: 0,
+          list: [{ name: "64" }, { name: "128" }, { name: "选项三" }],
+        },
+        {
+          title: "套餐",
+          selected: 0,
+          list: [{ name: "标配" }, { name: "套餐一" }, { name: "套餐二" }],
+        },
+      ],
+	  	detail: {
+        // id: 20,
+        title: "小米MIX3 6GB+128GB",
+        desc: "磁动力滑盖全面屏 / 前后旗舰AI双摄 / 四曲面彩色陶瓷机身 / 高效10W无线充电",
+        // cover: "/static/images/demo/list/1.jpg",
+        pprice: 3299,
+        num: "1",
+        max: 100,
+      },
       // checked:false,
       isedit: false,
       //默认让购物车不处于编辑状态
@@ -220,17 +307,19 @@ export default {
   },
   computed: {
     ...mapState({
-      list: (state) => state.cart.list,
-      selectedList: (state) => state.cart.selectedList,
+      	list:state=> state.cart.list,
+	  	popupShow:state=> state.cart.popupShow,
+		popupData:state=>state.cart.popupData,
+      	selectedList:state=> state.cart.selectedList,
     }),
     ...mapGetters([
-      "checkedAll",
-      "disableSelectAll",
-      "totalPrice",
-      "cartCount",
+      	"checkedAll",
+      	"disableSelectAll",
+      	"totalPrice",
+      	"cartCount",
     ]),
     changeNum(e, item, index) {
-      item.num = e
+      	item.num = e
     },
     //如果拿到state中的数据后需要进一步的过滤使用  建议使用对象方式
     // ...mapState({
@@ -249,7 +338,12 @@ export default {
     // ...mapGetters(['activeList','noActiveList','getList','getById'])
   },
   methods: {
-    ...mapActions(['doSelectAll','doDelGoods']),
+    ...mapActions([
+		'doSelectAll',
+		'doDelGoods',
+		'doShowPopup',
+		'doHidePopup',
+	]),
     ...mapMutations(['selectItem']),
   },
 };
