@@ -1,6 +1,5 @@
 <template>
   <view class="animated fadeIn faster" style="background: #f5f5f5">
-    <!--  v-if="beforeReady" -->
     <!-- <loading-plus></loading-plus> -->
     <!-- @click-right="isedit = !isedit"  取反状态 假如是TRUE 则显示FALSE   :fixed="true"固定导航条 -->
     <uni-nav-bar
@@ -12,7 +11,7 @@
       :fixed="true"
     ></uni-nav-bar>
     <!-- 购物车为空 -->
-    <view class="py-5 d-flex a-center j-center bg-white" v-if="disableSelectAll">
+    <view class="py-5 d-flex a-center j-center bg-white"  v-if="disableSelectAll">
       <view
         class="iconfont icon-gouwuche text-light-muted"
         style="font-size: 50upx"
@@ -25,215 +24,100 @@
       >
     </view>
 
-    <!-- 购物车商品列表 -->
+    <!-- 购物车商品列表    -->
     <view class="bg-white px-2" v-else>
       <!-- 列表 -->
       <view
         class="d-flex a-center py-3 border-bottom border-light-secondary"
-        v-for="(item, index) in list"
-        :key="index"
-      >
-        <label
-          class="radio d-flex a-center j-center flex-shrink"
-          style="width: 80upx; height: 80upx"
-          @click="selectItem(index)"
-        >
+        v-for="(item, index) in list" :key="index">
+        <label class="radio d-flex a-center j-center flex-shrink"
+          style="width: 80upx; height: 80upx" @click="selectItem(index)">
           <radio :value="item.id" :checked="item.checked" color="#FD6801" />
         </label>
 
-        <image
-          :src="item.cover"
-          mode="widthFix"
-          style="height: 150rpx; width: 150rpx"
-          class="border border-light-secondary rounded p-2 flex-shrink"
-        ></image>
+        <image :src="item.cover" mode="widthFix" style="height: 150rpx; width: 150rpx"
+          class="border border-light-secondary rounded p-2 flex-shrink"></image>
 
         <view class="flex-1 d-flex flex-column pl-2">
-          <view class="text-dark" style="font-size: 35upx">{{
-            item.title
-          }}</view>
+          <view class="text-dark" style="font-size: 35upx">{{item.title}}</view>
           <!-- 规格属性  :class="isedit ? ' p-1 bg-light-secondary mb-2' : ''"
 					  v-if="item.skus_type === 1"-->
           <view class="d-flex text-light-muted mb-1" :class="isedit ? ' p-1 bg-light-secondary mb-2' : ''"
 		    @tap.stop="showPopup(index)">
-            <text class="mr-1"
-              v-for="(attr, attrIndex) in item.skusText" :key="attrIndex"
+            <text class="mr-1" v-for="(attr, attrIndex) in item.attrs" :key="attrIndex"
               >{{ attr.list[attr.selected].name }}</text>
-            <!-- {{ item.skusText }} iconfont icon-bottom-->
+            <!-- {{ item.attrs }} iconfont icon-bottom-->
             <view class=" font ml-auto" v-if="isedit"><uni-icons type="bottom" size="12"></uni-icons></view>
           </view>
           <view class="mt-auto d-flex j-sb">
             <price :text="item.pprice"></price>
             <view class="a-self-end">
-              <uni-number-box
-                :min="item.minnum"
-                :value="item.num"
-                :max="item.maxnum"
-              ></uni-number-box>
-              <!--  @change="changeNum($event, item, index)" -->
+              <uni-number-box :min="item.minnum" :value="item.num" :max="item.maxnum" @change="changeNum($event, item, index)"></uni-number-box>
+              <!--    @change="item:num" = $event-->
             </view>
           </view>
         </view>
       </view>
     </view>
 
-    <view class="text-center main-text-color font-md font-weight mt-5"
-      >为你推荐</view
-    >
-    <view
-      class="
-        position-relative
-        d-flex
-        a-center
-        j-center
-        text-secondary
-        mb-3
-        pt-3
-      "
-    >
-      <view
-        style="background: #f5f5f5; z-index: 2"
-        class="px-2 position-absolute"
-        >买的人还买了</view
-      >
-      <view
-        class="position-absolute"
-        style="height: 1upx; left: 0; right: 0; background-color: #dddddd"
-      ></view>
+    <view class="text-center main-text-color font-md font-weight mt-5">为你推荐</view>
+    <view class="position-relative d-flex a-center j-center text-secondary mb-3 pt-3">
+      <view style="background: #f5f5f5; z-index: 2" class="px-2 position-absolute">买的人还买了</view>
+      <view class="position-absolute" style="height: 1upx; left: 0; right: 0; background-color: #dddddd"></view>
     </view>
 
-    <!-- 占位 -->
+    <!-- 占位  -->
     <view style="height: 100upx"></view>
     <!-- 合计  -->
-    <view
-      class="
-        d-flex
-        a-center
-        position-fixed
-        left-0
-        right-0
-        bottom-1
-        border-top border-light-secondary
-        a-stretch
-        bg-white
-      "
-      style="height: 100rpx; z-index: 1000"
-    >
-      <label
-        class="radio d-flex a-center j-center flex-shrink"
-        style="width: 120upx"
-        @click="doSelectAll"
-      >
-        <radio
-          color="#FD6801"
-          :checked="checkedAll"
-          :disabled="disableSelectAll"
-        />
+    <view class="d-flex a-center position-fixed left-0 right-0 bottom-1 border-top border-light-secondary a-stretch bg-white"
+      style="height: 100rpx; z-index: 1000">
+      <label class="radio d-flex a-center j-center flex-shrink" style="width: 120upx" @click="doSelectAll">
+        <radio color="#FD6801" :checked="checkedAll" :disabled="disableSelectAll"/>
       </label>
       <template v-if="!isedit">
-        <view class="flex-1 d-flex a-center j-center font-md">
-          合计
+        <view class="flex-1 d-flex a-center j-center font-md">合计
           <price :text="totalPrice"></price>
         </view>
-        <!-- -->
         <!--  @tap="orderConfirm" -->
-        <view
-          class="
-            flex-1
-            d-flex
-            a-center
-            j-center
-            main-bg-color
-            text-white
-            font-md
-          "
-          hover-class="main-bg-hover-color"
-          style="height: 100%"
-          >结算</view
-        >
+        <view class=" flex-1 d-flex a-center j-center main-bg-color text-white font-md"
+          hover-class="main-bg-hover-color" style="height: 100%">结算</view>
       </template>
       <template v-else>
-        <view
-          class="
-            flex-1
-            d-flex
-            a-center
-            j-center
-            font-md
-            main-bg-color
-            text-white
-          "
-          style="height: 100%"
-        >
-          移入收藏
-        </view>
-        <view
-          class="flex-1 d-flex a-center j-center bg-danger text-white font-md"
-          hover-class="main-bg-hover-color" @tap="doDelGoods" 
-          style="height: 100%"
-          >删除</view>
+        <view class=" flex-1 d-flex a-center j-center font-md main-bg-color text-white" style="height: 100%">移入收藏</view>
+        <view class="flex-1 d-flex a-center j-center bg-danger text-white font-md" hover-class="main-bg-hover-color"
+         @tap="doDelGoods" style="height: 100%">删除</view>  
       </template>
     </view>
 
-    <!-- 属性筛选框 -->
-	<common-popup :popupClass="doShowPopup" @hide="doHidePopup">
-      <view class="d-flex a-center" style="height: 275rpx">
-        <image
-          src="/static/images/demo/list/1.jpg"
-          mode="widthFix"
-          style="height: 180rpx; width: 180rpx"
-          class="border rounded"
-        ></image>
-        <view class="pl-2">
-          <price priceSize="font-lg" unitSize="font" >2365</price>
-          <view class="d-block">
-			  <text class="mr-1"
-              v-for="(attr, attrIndex) in popupData.skusText" :key="attrIndex"
-              >{{ attr.list[attr.selected].name }}</text>
-		  </view>
-        </view>
-      </view>
-	  <!--:text="showPrice"  {{ checkedSkus }}  :max="maxStock" -->
-      <scroll-view scroll-y class="w-100" style="height: 660rpx">
-        <card
-          :headTitle="item.title"
-          :headTitleWeight="false"
-          :headBorderBottom="false"
-          :key="index"
-          v-for="(item, index) in popupData.skusText"
-        >
-          <zcm-radio-group
-            :label="item"
-            :selected.sync="item.selected"
-          ></zcm-radio-group>
-        </card>
-        <view
-          class="d-flex j-sb a-center p-2 border-top border-light-secondary"
-        >
-          <text>购买数量</text>
-         
-          <uni-number-box
-            :min="1"
-            :value="popupData.num"
-            @change="popupData.num = $event"
-          ></uni-number-box>
-        </view>
-      </scroll-view>
-	  <!--  :"maxStock !== 0 ? '' : ''"      :class="maxStock === 0 ? 'bg-secondary' : 'main-bg-color'"-->
-      <view
-        class="text-white font-md d-flex a-center j-center"
-        style="height: 100rpx; margin-left: -30rpx; margin-right: -30rpx"
-		hover-class="main-bg-hover-color"
-        
-       
-        @tap.stop="doHidePopup"
-      >
-	  确定
-        <!-- {{ maxStock === 0 ? "暂无库存" : "加入购物车" }} -->
-      </view>
-    </common-popup>
 
-	<!-- 属性筛选框 -->
+    <!-- 属性筛选框 -->
+    <common-popup :popupClass="doShowPopup" @hide="doHidePopup">
+        <view class="d-flex a-center" style="height: 275rpx">
+          <image src="/static/images/demo/list/1.jpg" mode="widthFix"  
+            style="height: 180rpx; width: 180rpx" class="border rounded"></image>
+          <view class="pl-2">
+            <price priceSize="font-lg" unitSize="font" >2365</price>
+            <view class="d-block">
+              <text class="mr-1" v-for="(attr, attrIndex) in popupData.skusText" :key="attrIndex">{{ attr.list[attr.selected].name }}</text>       
+            </view>
+          </view>
+        </view>
+      <!--:text="showPrice"  {{ checkedSkus }}  :max="maxStock" -->
+        <scroll-view scroll-y class="w-100" style="height: 660rpx">
+          <card :headTitle="item.title" :headTitleWeight="false"
+            :headBorderBottom="false" :key="index" v-for="(item, index) in popupData.skusText">
+            <zcm-radio-group :label="item" :selected.sync="item.selected"></zcm-radio-group>
+          </card>
+          <view class="d-flex j-sb a-center p-2 border-top border-light-secondary">
+            <text>购买数量</text>
+            <uni-number-box :min="1" :value="popupData.num" @change="popupData.num = $event"></uni-number-box>  
+          </view>
+        </scroll-view>
+      <!--  :"maxStock !== 0 ? '' : ''"      :class="maxStock === 0 ? 'bg-secondary' : 'main-bg-color'"-->
+        <view class="text-white font-md d-flex a-center j-center" style="height: 100rpx; margin-left: -30rpx; margin-right: -30rpx" 
+          hover-class="main-bg-hover-color"@tap.stop="doHidePopup"> 确定</view> 
+        <!-- {{ maxStock === 0 ? "暂无库存" : "加入购物车" }} -->
+      </common-popup> 
     
   </view>
 </template>
@@ -245,20 +129,18 @@ import price from "@/components/common/price.vue";
 import uniNumberBox from "@/components/uni-ui/uni-number-box/uni-number-box.vue";
 import { mapState, mapGetters, mapMutations, mapActions } from "vuex";
 
-
-
-import commonPopup from "@/components/common/common-popup.vue"
-import zcmRadioGroup from "@/components/common/radio-group.vue"
-import card from "@/components/common/card.vue"
+import commonPopup from "@/components/common/common-popup.vue";
+import zcmRadioGroup from "@/components/common/radio-group.vue";
+import card from "@/components/common/card.vue";
 export default {
   components: {
     uniNavBar,
     price,
     uniNumberBox,
 
-	commonPopup,
-	zcmRadioGroup,
-	card,
+    commonPopup,
+    zcmRadioGroup,
+    card,
   },
   data() {
     return {
@@ -293,24 +175,11 @@ export default {
       //默认让购物车不处于编辑状态
     };
   },
-  onLoad() {
-    // console.log(JSON.stringify(this.$store.state.list))
-    // console.log(JSON.stringify(this.list));
-    // console.log(JSON.stringify(this.newList));
-    // console.log(JSON.stringify(this.$store.getters.activeList));第一种getters
-    // console.log(JSON.stringify(this.activeList));
-    // console.log(JSON.stringify(this.noActiveList));
-    // console.log(JSON.stringify(this.getList));
-    // console.log(JSON.stringify(this.getById(1)));
-    // this.$store.commit('inc')
-    // this.inc(10)
-    // this.AsyncIne(100)
-  },
   computed: {
     ...mapState({
       	list:state=> state.cart.list,
-	  	popupShow:state=> state.cart.popupShow,
-		popupData:state=>state.cart.popupData,
+	  	  popupShow:state=> state.cart.popupShow,
+		    popupData:state=>state.cart.popupData,
       	selectedList:state=> state.cart.selectedList,
     }),
     ...mapGetters([
@@ -320,35 +189,23 @@ export default {
       	'cartCount',
 		'popupData'
     ]),
-    changeNum(e, item, index) {
-      	item.num = e
-    },
-    //如果拿到state中的数据后需要进一步的过滤使用  建议使用对象方式
-    // ...mapState({
-    //   list:state=>state.cart.list,
-    // // 通过mapState拿到state中cart的list
-    //   // list:"list",
-    //   //newList(state) {
-    //   //  return state.cart.list.filter((v) => v.status);
-    //   //},
-    // }),
-    //如果直接拿state中的数据可以直接使用数组的形式，多个数据使用逗号隔开
-    // ...mapState([
-    // 	'list'
-    // ])
-    // 第二种getters
-    // ...mapGetters(['activeList','noActiveList','getList','getById'])
   },
   methods: {
     ...mapActions([
-		'doSelectAll',
-		'doDelGoods',
-		'doShowPopup',
-		'doHidePopup',
-	]),
-    ...mapMutations(['selectItem']),
+      'doSelectAll',
+      'doDelGoods',
+      'doShowPopup',
+      'doHidePopup',
+    ]),
+    ...mapMutations([
+      'selectItem'
+    ]),
+    changeNum(e,item,index){
+      item.num === e
+    }
   },
 };
 </script>
 
-<style></style>
+<style>
+</style>

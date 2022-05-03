@@ -16,10 +16,10 @@ export default {
                 cover: '../../static/images/demo/cate_01.png',
                 title: '香油条',
                 pprice: 500,
-                minnum: 1,
+                minnum: 1,//
                 num: 5,
-                maxnum: 10,
-                skusText: [
+                maxnum: 10,//最大商品数 跟库存相关
+                attrs: [
                     {
                         title:'颜色',
                         selected:0,
@@ -53,7 +53,7 @@ export default {
                 minnum: 1,
                 num: 10,
                 maxnum: 10,
-                skusText: [
+                attrs: [
                     {
                         title:'颜色',
                         selected:0,
@@ -89,7 +89,7 @@ export default {
                 minnum: 1,
                 num: 1,
                 maxnum: 10,
-                skusText: [
+                attrs: [
                     {
                         title:'颜色',
                         selected:0,
@@ -121,13 +121,13 @@ export default {
     //计算属性 
     getters: {
         // 判断是否全选
-        checkedAll:(state)=>{
-            return state.list.lenght === state.selectedList.lenght
-        },
-        // 禁止全选
-        disableSelectAll:(state)=>{
-            return state.list.lenght === 0
-        },
+		checkedAll:(state)=>{
+			return state.list.length === state.selectedList.length
+		},
+        // 禁用全选
+		disableSelectAll:(state)=>{
+			return state.list.length === 0
+		},
         // 合计
         totalPrice:(state)=>{
             // 总价
@@ -223,7 +223,7 @@ export default {
     actions: {
         doSelectAll({commit,getters}){
             // 拿选中的状态来判断是否全选或取消全选
-            getters.checked ? commit('unSelectAll'): commit('selectAll')
+            getters.checkedAll ? commit('unSelectAll'): commit('selectAll')
         },
         // 显示popup
 		doShowPopup({state,commit},index){
